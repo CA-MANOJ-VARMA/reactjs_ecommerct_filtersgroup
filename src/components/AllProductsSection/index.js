@@ -71,6 +71,8 @@ class AllProductsSection extends Component {
     isLoading: false,
     activeOptionId: sortbyOptions[0].optionId,
     searchValue: '',
+    category: '',
+    rating: '',
     failure: false,
   }
 
@@ -85,6 +87,27 @@ class AllProductsSection extends Component {
     }
   }
 
+  categoryFilteredFunction = categoryValue => {
+    this.setState({category: categoryValue}, this.getProducts)
+  }
+
+  ratingFilteredFunction = ratingValue => {
+    this.setState({rating: ratingValue}, this.getProducts)
+  }
+
+  clearFiltersFunction = () => {
+    this.setState(
+      {
+        rating: '',
+        category: '',
+        searchValue: '',
+        activeOptionId: sortbyOptions[0].optionId,
+        productsList: [],
+      },
+      this.getProducts,
+    )
+  }
+
   getProducts = async () => {
     this.setState({
       isLoading: true,
@@ -93,8 +116,9 @@ class AllProductsSection extends Component {
 
     // TODO: Update the code to get products with filters applied
 
-    const {activeOptionId, searchValue} = this.state
-    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&title_search=${searchValue}`
+    const {activeOptionId, searchValue, category, rating} = this.state
+    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${category}&title_search=${searchValue}&rating=${rating}`
+    console.log(apiUrl)
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -183,6 +207,9 @@ class AllProductsSection extends Component {
         <FiltersGroup
           categoryOptions={categoryOptions}
           ratingsList={ratingsList}
+          categoryFilteredFunction={this.categoryFilteredFunction}
+          ratingFilteredFunction={this.ratingFilteredFunction}
+          clearFiltersFunction={this.clearFiltersFunction}
         />
 
         {isLoading ? this.renderLoader() : this.renderProductsList()}

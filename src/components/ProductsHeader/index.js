@@ -20,7 +20,7 @@ const ProductsHeader = props => {
       <div className="products-header">
         <div className="css-input-container">
           <input
-            type="text"
+            type="search"
             className="css-input-itself"
             placeholder="Search"
             onKeyDown={onChangeFunction}

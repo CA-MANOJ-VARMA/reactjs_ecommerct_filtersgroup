@@ -33,4 +33,16 @@
   }
 }
 
+.css-clearfilters-button-itself {
+  background-color: blueviolet;
+  color: white;
+  border-width: 0;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.css-clearfilters-button-itself:hover {
+  cursor: pointer;
+}
+
 /* Write your CSS here */
